@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\UpdateCurrencyRates;
+use App\Jobs\ClearCurrencyData;
 use App\Interfaces\ScrapperInterface;
 class Kernel extends ConsoleKernel
 {
@@ -14,8 +15,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $scrapperInterface = app(ScrapperInterface::class);
-        $schedule->job(new UpdateCurrencyRates($scrapperInterface))->everySevenMinutes();
-        $schedule->job(new ClearCurrencyRates)->everyMinute();
+        $schedule->job(new UpdateCurrencyRates($scrapperInterface))->cron('*/7 * * * *');
+        $schedule->job(new ClearCurrencyData)->everyMinute();
     }
 
     /**
