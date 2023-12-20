@@ -13,6 +13,7 @@ use App\Http\Controllers\ScrapperController;
 |
 */
 Route::get('/scrapper', [ScrapperController::class, 'scrapper']);
+Route::get('/scrapperSaveData', [ScrapperController::class, 'scrapperSaveData']);
 Route::get('/', function () {
     return view('welcome');
 });

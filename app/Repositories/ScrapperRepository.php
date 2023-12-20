@@ -12,16 +12,16 @@ class ScrapperRepository implements ScrapperInterface
     public function getScrappedData($url)
     {
         $client = new Client();
-                $crawler = $client->request('GET', $url);
-                $crawler->filter('.in_table tr')->each(function ($node) {
-                    $cleanedText = preg_replace('/\s+/', ' ', trim($node->text()));
-                    $this->data[] = $cleanedText;
-                });
+        $crawler = $client->request('GET', $url);
+        $crawler->filter('.in_table tr')->each(function ($node) {
+            $cleanedText = preg_replace('/\s+/', ' ', trim($node->text()));
+            $this->data[] = $cleanedText;
+        });
 
-                $result = [];
+        $result = [];
 
-                $result['meta'] = [$this->getMeta()];
-                $result['rates'] = [$this->getCurrency()];
+        $result['meta'] = [$this->getMeta()];
+        $result['rates'] = [$this->getCurrency()];
         return $result;
     }
 
