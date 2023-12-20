@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $scrapperInterface = app(ScrapperInterface::class);
-        $schedule->job(new UpdateCurrencyRates($scrapperInterface))->everyMinute();
+        $schedule->job(new UpdateCurrencyRates($scrapperInterface))->everySevenMinutes();
+        $schedule->job(new ClearCurrencyRates)->everyMinute();
     }
 
     /**

@@ -7,6 +7,7 @@ use Goutte\Client;
 use Carbon\Carbon;
 use App\Interfaces\ScrapperInterface;
 use Storage;
+use App\Jobs\ClearCurrencyData;
 
 class ScrapperController extends Controller
 {
@@ -26,6 +27,12 @@ class ScrapperController extends Controller
         Storage::disk('public')->put($filename, $jsonResult);
 
         return $filename;
+    }
+
+    public function clearStoredData()
+    {
+        ClearCurrencyData::dispatch()->onQueue('clear-currency-data');
+        return 'Proses berhasil ditambahkan pada Job';
     }
 
 }
